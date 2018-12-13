@@ -33,7 +33,7 @@ namespace WaughJ\WPThemeOption
 			?><input type="text" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
 		}
 
-		private function getOptionValue() : string
+		public function getOptionValue() : string
 		{
 			$options = get_option( $this->section->getPage()->getOptionsGroup() );
 			return ( is_array( $options ) )
