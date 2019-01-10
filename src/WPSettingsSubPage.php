@@ -22,7 +22,7 @@ namespace WaughJ\WPSettings
 			call_user_func( $this->getAddPageFunction(), $this->title, $this->title, $this->capability, $this->slug, [ $this, 'render' ] );
 		}
 
-		public function registerSetting()
+		public function registerSetting() : void
 		{
 			if ( get_option( $this->getOptionsGroup() ) == false )
 			{
@@ -66,13 +66,13 @@ namespace WaughJ\WPSettings
 			return $this->name;
 		}
 
-		private function getAddPageFunction( string $type ) : string
+		public function getAddPageFunction() : string
 		{
-			if ( !array_key_exists( $type, self::TYPE_ADD_PAGE_FUNCTIONS ) )
+			if ( !array_key_exists( $this->type, self::TYPE_ADD_PAGE_FUNCTIONS ) )
 			{
-				throw new \Exception( "Invalid type for WPSettingsSubPage: {$type}" );
+				throw new \Exception( "Invalid type for WPSettingsSubPage: {$this->type}" );
 			}
-			return self::TYPE_ADD_PAGE_FUNCTIONS[ $type ];
+			return self::TYPE_ADD_PAGE_FUNCTIONS[ $this->type ];
 		}
 
 		private $type;
@@ -82,7 +82,9 @@ namespace WaughJ\WPSettings
 		const DEFAULT_CAPABILITY = 'manage_options';
 		const TYPE_ADD_PAGE_FUNCTIONS =
 		[
-			'tools' => 'add_management_page'
+			'settings' => 'add_options_page',
+			'tools' => 'add_management_page',
+			'theme' => 'add_theme_page'
 		];
 	}
 }

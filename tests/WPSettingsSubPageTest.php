@@ -9,10 +9,25 @@ use WaughJ\WPSettings\WPSettingsSection;
 
 class WPSettingsSubPageTest extends TestCase
 {
-	public function testBasic()
+	public function testOptionsGroup()
 	{
 		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
 		$this->assertEquals( 'settings_design_options', $page->getOptionsGroup() );
+	}
+
+	public function testGetAddPageFunction()
+	{
+		$settings_page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$this->assertEquals( 'add_options_page', $settings_page->getAddPageFunction() );
+		$tools_page = new WPSettingsSubPage( 'tools', 'design', 'Design' );
+		$this->assertEquals( 'add_management_page', $tools_page->getAddPageFunction() );
+		$theme_page = new WPSettingsSubPage( 'theme', 'design', 'Design' );
+		$this->assertEquals( 'add_theme_page', $theme_page->getAddPageFunction() );
+	}
+
+	public function testBasic()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
 		ob_start();
 		$page->render();
 		$html = ob_get_clean();
