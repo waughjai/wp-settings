@@ -19,7 +19,7 @@ namespace WaughJ\WPSettings
 
 		public function addPage() : void
 		{
-			call_user_func( $this->getAddPageFunction(), $this->title, $this->title, $this->capability, $this->slug, [ $this, 'render' ] );
+			call_user_func( $this->getAddPageFunction(), $this->name, $this->name, $this->capability, $this->slug, [ $this, 'render' ] );
 		}
 
 		public function registerSetting() : void
