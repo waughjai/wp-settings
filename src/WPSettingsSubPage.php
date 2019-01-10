@@ -7,7 +7,7 @@ namespace WaughJ\WPSettings
 		public function __construct( string $type, string $slug, string $name, string $capability = self::DEFAULT_CAPABILITY )
 		{
 			$this->type = $type;
-			$this->slug = "{$type}-{$slug}";
+			$this->slug = "{$type}_{$slug}";
 			$this->name = __( $name, 'textdomain' );
 			$this->capability = $capability;
 		}
@@ -39,7 +39,7 @@ namespace WaughJ\WPSettings
 
 		public function getOptionsGroup() : string
 		{
-			return "{$this->slug}-options";
+			return "{$this->slug}_options";
 		}
 
 		public function render() : void
