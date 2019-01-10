@@ -28,4 +28,14 @@ class WPSettingsOptionTest extends TestCase
 		$option->render();
 		$this->assertEquals( '<input type="checkbox" id="show_header" name="settings_design_options[show_header]" />', ob_get_clean() );
 	}
+
+	public function testTextarea()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
+		$option = new WPSettingsOption( $section, 'show_header', 'Show Header?', [ 'input_type' => 'textarea' ] );
+		ob_start();
+		$option->render();
+		$this->assertEquals( '<textarea id="show_header" name="settings_design_options[show_header]"></textarea>', ob_get_clean() );
+	}
 }

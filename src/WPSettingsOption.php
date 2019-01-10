@@ -39,6 +39,11 @@ namespace WaughJ\WPSettings
 					?><input type="checkbox" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"<?= $checked_text; ?> /><?php
 				}
 				break;
+				case( 'textarea' ):
+				{
+					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"><?= $this->getOptionValue(); ?></textarea><?php
+				}
+				break;
 				default:
 				{
 					?><input type="text" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
