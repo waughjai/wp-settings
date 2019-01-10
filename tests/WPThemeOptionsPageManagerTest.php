@@ -3,24 +3,24 @@
 require_once( 'MockWordPress.php' );
 
 use PHPUnit\Framework\TestCase;
-use WaughJ\WPThemeOption\WPThemeOptionsPage;
-use WaughJ\WPThemeOption\WPThemeOptionsPageManager;
+use WaughJ\WPSettings\WPSettingsSubPage;
+use WaughJ\WPSettings\WPSettingsSubPageManager;
 
-class WPThemeOptionsPageManagerTest extends TestCase
+class WPSettingsSubPageManagerTest extends TestCase
 {
 	public function testStart()
 	{
-		$this->assertEquals( null, WPThemeOptionsPageManager::get( 'design' ) );
+		$this->assertEquals( null, WPSettingsSubPageManager::get( 'settings', 'design' ) );
 	}
 
 	public function testBasic()
 	{
-		$page = WPThemeOptionsPageManager::initializeIfNotAlreadyInitialized( 'design', 'Design' );
-		$this->assertEquals( new WPThemeOptionsPage( 'design', 'Design' ), $page );
+		$page = WPSettingsSubPageManager::initializeIfNotAlreadyInitialized( 'settings', 'design', 'Design' );
+		$this->assertEquals( new WPSettingsSubPage( 'settings', 'design', 'Design' ), $page );
 	}
 
 	public function testStillWorks()
 	{
-		$this->assertEquals( new WPThemeOptionsPage( 'design', 'Design' ), WPThemeOptionsPageManager::get( 'design' ) );
+		$this->assertEquals( new WPSettingsSubPage( 'settings', 'design', 'Design' ), WPSettingsSubPageManager::get( 'settings', 'design' ) );
 	}
 }

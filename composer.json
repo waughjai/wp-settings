@@ -1,7 +1,7 @@
 {
-    "name": "waughj/wp-theme-option",
-    "description": "Classes for simplifying the creation of theme options, option sections, & option pages.",
-    "keywords": [ "wordpress", "option", "theme", "generator" ],
+    "name": "waughj/wp-settings",
+    "description": "Classes for simplifying the creation of general settings options, sections, & subpages.",
+    "keywords": [ "wordpress", "settings", "options", "generator" ],
     "license": "GPL-2.0-or-later",
     "authors": [
         {
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WaughJ\\WPThemeOption\\": "src/"
+            "WaughJ\\WPSettings\\": "src/"
         }
     }
 }

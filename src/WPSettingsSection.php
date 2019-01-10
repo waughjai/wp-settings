@@ -1,11 +1,10 @@
 <?php
-
 declare( strict_types = 1 );
-namespace WaughJ\WPThemeOption
+namespace WaughJ\WPSettings
 {
-	class WPThemeOptionsSection
+	class WPSettingsSection
 	{
-		public function __construct( WPThemeOptionsPage $page, string $slug, string $name )
+		public function __construct( WPSettingsSubPage $page, string $slug, string $name )
 		{
 			$this->page = $page;
 			$this->slug = $slug;
@@ -29,7 +28,7 @@ namespace WaughJ\WPThemeOption
 			return $this->slug;
 		}
 
-		public function getPage() : WPThemeOptionsPage
+		public function getPage() : WPSettingsSubPage
 		{
 			return $this->page;
 		}

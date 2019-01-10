@@ -1,14 +1,13 @@
 <?php
-
 declare( strict_types = 1 );
-namespace WaughJ\WPThemeOption
+namespace WaughJ\WPSettings
 {
 	use function WaughJ\TestHashItem\TestHashItemExists;
 	use WaughJ\VerifiedArgumentsSameType\VerifiedArgumentsSameType;
 
-	class WPThemeOption
+	class WPSettingsOption
 	{
-		public function __construct( WPThemeOptionsSection $section, string $slug, string $name, array $other_attributes = [] )
+		public function __construct( WPSettingsSection $section, string $slug, string $name, array $other_attributes = [] )
 		{
 			$this->section = $section;
 			$this->slug = $slug;
@@ -40,7 +39,6 @@ namespace WaughJ\WPThemeOption
 					?><input type="checkbox" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"<?= $checked_text; ?> /><?php
 				}
 				break;
-
 				default:
 				{
 					?><input type="text" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
