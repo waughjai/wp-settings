@@ -7,8 +7,9 @@ namespace WaughJ\WPSettings
 		public function __construct( string $type, string $slug, string $name, string $capability = self::DEFAULT_CAPABILITY )
 		{
 			$this->type = $type;
-			$this->slug = "{$type}_{$slug}";
+			$this->slug = "{$type}-{$slug}";
 			$this->name = __( $name, 'textdomain' );
+			$this->capability = $capability;
 		}
 
 		public function submit() : void
@@ -38,7 +39,7 @@ namespace WaughJ\WPSettings
 
 		public function getOptionsGroup() : string
 		{
-			return "{$this->slug}_options";
+			return "{$this->slug}-options";
 		}
 
 		public function render() : void
@@ -78,6 +79,7 @@ namespace WaughJ\WPSettings
 		private $type;
 		private $slug;
 		private $name;
+		private $capability;
 
 		const DEFAULT_CAPABILITY = 'manage_options';
 		const TYPE_ADD_PAGE_FUNCTIONS =
