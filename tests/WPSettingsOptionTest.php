@@ -38,4 +38,14 @@ class WPSettingsOptionTest extends TestCase
 		$option->render();
 		$this->assertEquals( '<textarea id="show_header" name="settings_design_options[show_header]"></textarea>', ob_get_clean() );
 	}
+
+	public function testNumber()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
+		$option = new WPSettingsOption( $section, 'zipcode', 'Zipcode', [ 'input_type' => 'number' ] );
+		ob_start();
+		$option->render();
+		$this->assertEquals( '<input type="number" id="zipcode" name="settings_design_options[zipcode]" placeholder="Zipcode" value="" />', ob_get_clean() );
+	}
 }

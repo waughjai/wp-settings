@@ -46,7 +46,7 @@ namespace WaughJ\WPSettings
 				break;
 				default:
 				{
-					?><input type="text" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
+					?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
 				}
 				break;
 			}
