@@ -48,4 +48,14 @@ class WPSettingsOptionTest extends TestCase
 		$option->render();
 		$this->assertEquals( '<input type="number" id="zipcode" name="settings_design_options[zipcode]" placeholder="Zipcode" value="" />', ob_get_clean() );
 	}
+
+	public function testSelect()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
+		$option = new WPSettingsOption( $section, 'state', 'State', [ 'input_type' => 'select', 'select_options' => [ [ 'value' => 'al', 'name' => 'Alabama' ], [ 'value' => 'ca', 'name' => 'California' ], [ 'value' => 'wa', 'name' => 'Washington' ] ] ] );
+		ob_start();
+		$option->render();
+		$this->assertEquals( '<select id="state" name="settings_design_options[state]"><option value="al">Alabama</option><option value="ca">California</option><option value="wa">Washington</option></select>', ob_get_clean() );
+	}
 }

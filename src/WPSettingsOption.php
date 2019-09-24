@@ -2,6 +2,7 @@
 declare( strict_types = 1 );
 namespace WaughJ\WPSettings
 {
+	use WaughJ\HTMLSelect\HTMLSelect;
 	use function WaughJ\TestHashItem\TestHashItemExists;
 	use WaughJ\VerifiedArgumentsSameType\VerifiedArgumentsSameType;
 
@@ -44,6 +45,25 @@ namespace WaughJ\WPSettings
 					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"><?= $this->getOptionValue(); ?></textarea><?php
 				}
 				break;
+				case( 'select' ):
+				{
+					$options = $this->other_attributes->get( 'select_options' );
+					$number_of_options = count( $options );
+					for ( $i = 0; $i < $number_of_options; $i++ )
+					{
+						if ( $this->getOptionValue() === $options[ $i ][ 'value' ] )
+						{
+							$options[ $i ][ 'selected' ] = true;
+						}
+					}
+
+					echo new HTMLSelect
+					(
+						$options,
+						[ 'id' => $this->slug, 'name' => $this->section->getPage()->getOptionsGroup() . '[' . $this->slug . ']' ]
+					);
+				}
+				break;
 				default:
 				{
 					?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
@@ -62,7 +82,8 @@ namespace WaughJ\WPSettings
 
 		const DEFAULT_ATTRIBUTES =
 		[
-			'input_type' => 'text'
+			'input_type' => 'text',
+			'select_options' => []
 		];
 
 		private $page;
