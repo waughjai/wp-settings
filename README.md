@@ -20,6 +20,9 @@ Will generate a “Design” tab in Settings on WordPress admin with “Main Scr
 
 ## Changelog
 
+### 0.8.0
+* Add custom render option.
+
 ### 0.7.0
 * Add select & other simple input types.
 

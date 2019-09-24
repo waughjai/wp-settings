@@ -58,4 +58,14 @@ class WPSettingsOptionTest extends TestCase
 		$option->render();
 		$this->assertEquals( '<select id="state" name="settings_design_options[state]"><option value="al">Alabama</option><option value="ca">California</option><option value="wa">Washington</option></select>', ob_get_clean() );
 	}
+
+	public function testCustom()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$section = new WPSettingsSection( $page, 'custom', 'Custom Options' );
+		$option = new WPSettingsOption( $section, 'custom', 'custom', [ 'custom_render' => function( WPSettingsOption $option ) { echo '<h1>HELLO WORLD!</h1>'; } ] );
+		ob_start();
+		$option->render();
+		$this->assertEquals( '<h1>HELLO WORLD!</h1>', ob_get_clean() );
+	}
 }

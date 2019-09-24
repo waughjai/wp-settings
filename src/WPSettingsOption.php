@@ -4,7 +4,7 @@ namespace WaughJ\WPSettings
 {
 	use WaughJ\HTMLSelect\HTMLSelect;
 	use function WaughJ\TestHashItem\TestHashItemExists;
-	use WaughJ\VerifiedArgumentsSameType\VerifiedArgumentsSameType;
+	use WaughJ\VerifiedArguments\VerifiedArguments;
 
 	class WPSettingsOption
 	{
@@ -13,7 +13,7 @@ namespace WaughJ\WPSettings
 			$this->section = $section;
 			$this->slug = $slug;
 			$this->name = __( $name, 'textdomain' );
-			$this->other_attributes = new VerifiedArgumentsSameType( $other_attributes, self::DEFAULT_ATTRIBUTES );
+			$this->other_attributes = new VerifiedArguments( $other_attributes, self::DEFAULT_ATTRIBUTES );
 			add_action( 'admin_init', [ $this, 'register' ] );
 		}
 
@@ -32,43 +32,50 @@ namespace WaughJ\WPSettings
 
 		public function render() : void
 		{
-			switch ( $this->other_attributes->get( 'input_type' ) )
+			if ( $this->other_attributes->get( 'custom_render' ) !== null )
 			{
-				case( 'checkbox' ):
+				$this->other_attributes->get( 'custom_render' )( $this );
+			}
+			else
+			{
+				switch ( $this->other_attributes->get( 'input_type' ) )
 				{
-					$checked_text = ( $this->getOptionValue() ) ? ' checked="checked"' : '';
-					?><input type="checkbox" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"<?= $checked_text; ?> /><?php
-				}
-				break;
-				case( 'textarea' ):
-				{
-					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"><?= $this->getOptionValue(); ?></textarea><?php
-				}
-				break;
-				case( 'select' ):
-				{
-					$options = $this->other_attributes->get( 'select_options' );
-					$number_of_options = count( $options );
-					for ( $i = 0; $i < $number_of_options; $i++ )
+					case( 'checkbox' ):
 					{
-						if ( $this->getOptionValue() === $options[ $i ][ 'value' ] )
-						{
-							$options[ $i ][ 'selected' ] = true;
-						}
+						$checked_text = ( $this->getOptionValue() ) ? ' checked="checked"' : '';
+						?><input type="checkbox" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"<?= $checked_text; ?> /><?php
 					}
+					break;
+					case( 'textarea' ):
+					{
+						?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"><?= $this->getOptionValue(); ?></textarea><?php
+					}
+					break;
+					case( 'select' ):
+					{
+						$options = $this->other_attributes->get( 'select_options' );
+						$number_of_options = count( $options );
+						for ( $i = 0; $i < $number_of_options; $i++ )
+						{
+							if ( $this->getOptionValue() === $options[ $i ][ 'value' ] )
+							{
+								$options[ $i ][ 'selected' ] = true;
+							}
+						}
 
-					echo new HTMLSelect
-					(
-						$options,
-						[ 'id' => $this->slug, 'name' => $this->section->getPage()->getOptionsGroup() . '[' . $this->slug . ']' ]
-					);
+						echo new HTMLSelect
+						(
+							$options,
+							[ 'id' => $this->slug, 'name' => $this->section->getPage()->getOptionsGroup() . '[' . $this->slug . ']' ]
+						);
+					}
+					break;
+					default:
+					{
+						?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
+					}
+					break;
 				}
-				break;
-				default:
-				{
-					?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
-				}
-				break;
 			}
 		}
 
@@ -80,16 +87,16 @@ namespace WaughJ\WPSettings
 				: ( string )( $options );
 		}
 
-		const DEFAULT_ATTRIBUTES =
-		[
-			'input_type' => 'text',
-			'select_options' => []
-		];
-
 		private $page;
 		private $section;
 		private $slug;
 		private $name;
 		private $other_attributes;
+
+		private const DEFAULT_ATTRIBUTES =
+		[
+			'input_type' => [ "type" => "string", "value" => "text" ],
+			'custom_render' => [ "type" => \Closure::class, "value" => null ]
+		];
 	}
 }
