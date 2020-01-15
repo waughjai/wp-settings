@@ -12,19 +12,22 @@ Classes for simplifying the creation of general settings options, sections, & su
     $page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
     $section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
     $option = new WPSettingsOption( $section, 'main_css', 'Main CSS' );
-    $option->render();
+    $page->submit();
 
 Will generate a “Design” tab in Settings on WordPress admin with “Main Scripts” section & option headered “Main CSS”. The value saved into that input box can then be later retrieved by calling:
 
-    $option->getOptionValue()
+    $option->getOptionValue();
 
 ## Changelog
 
+### 0.9.0
+* Clean up & update code & fix readme errors
+
 ### 0.8.0
-* Add custom render option.
+* Add custom render option
 
 ### 0.7.0
-* Add select & other simple input types.
+* Add select & other simple input types
 
 ### 0.6.0
 * Add Textarea Input Type to Option Class

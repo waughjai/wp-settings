@@ -1,17 +1,14 @@
 <?php
 
 declare( strict_types = 1 );
-namespace WaughJ\WPSettings
+namespace WaughJ\WPSettings;
+
+class WPGeneralSettingsSubPage extends WPSettingsSubPage
 {
-	use WaughJ\WPSettings\WPSettingsSubPage;
-
-	class WPGeneralSettingsSubPage extends WPSettingsSubPage
+	public function __construct( string $slug, string $name, string $capability = WPSettingsSubPage::DEFAULT_CAPABILITY )
 	{
-		public function __construct( string $slug, string $name, string $capability = WPSettingsSubPage::DEFAULT_CAPABILITY )
-		{
-			parent::__construct( self::TYPE, $slug, $name, $capability );
-		}
-
-		const TYPE = 'settings';
+		parent::__construct( self::TYPE, $slug, $name, $capability );
 	}
+
+	private const TYPE = 'settings';
 }

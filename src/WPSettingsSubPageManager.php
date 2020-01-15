@@ -1,30 +1,27 @@
 <?php
 
 declare( strict_types = 1 );
-namespace WaughJ\WPSettings
+namespace WaughJ\WPSettings;
+
+class WPSettingsSubPageManager
 {
-	use WaughJ\WPSettings\WPSettingsSubPage;
-
-	class WPSettingsSubPageManager
+	public static function initializeIfNotAlreadyInitialized( string $type, string $slug, string $title ) : WPSettingsSubPage
 	{
-		public static function initializeIfNotAlreadyInitialized( string $type, string $slug, string $title ) : WPSettingsSubPage
+		if ( !isset( self::$pages[ $type ] ) )
 		{
-			if ( !isset( self::$pages[ $type ] ) )
-			{
-				self::$pages[ $type ] = [];
-			}
-			if ( !isset( self::$pages[ $type ][ $slug ] ) )
-			{
-				self::$pages[ $type ][ $slug ] = new WPSettingsSubPage( $type, $slug, $title );
-			}
-			return self::$pages[ $type ][ $slug ];
+			self::$pages[ $type ] = [];
 		}
-
-		public static function get( string $type, string $slug )
+		if ( !isset( self::$pages[ $type ][ $slug ] ) )
 		{
-			return ( isset( self::$pages[ $type ] ) && isset( self::$pages[ $type ][ $slug ] ) ) ? self::$pages[ $type ][ $slug ] : null;
+			self::$pages[ $type ][ $slug ] = new WPSettingsSubPage( $type, $slug, $title );
 		}
-
-		private static $pages = [];
+		return self::$pages[ $type ][ $slug ];
 	}
+
+	public static function get( string $type, string $slug )
+	{
+		return ( isset( self::$pages[ $type ] ) && isset( self::$pages[ $type ][ $slug ] ) ) ? self::$pages[ $type ][ $slug ] : null;
+	}
+
+	private static $pages = [];
 }

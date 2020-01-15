@@ -1,17 +1,14 @@
 <?php
 
 declare( strict_types = 1 );
-namespace WaughJ\WPSettings
+namespace WaughJ\WPSettings;
+
+class WPToolsSubPage extends WPSettingsSubPage
 {
-	use WaughJ\WPSettings\WPSettingsSubPage;
-
-	class WPToolsSubPage extends WPSettingsSubPage
+	public function __construct( string $slug, string $name, string $capability = WPSettingsSubPage::DEFAULT_CAPABILITY )
 	{
-		public function __construct( string $slug, string $name, string $capability = WPSettingsSubPage::DEFAULT_CAPABILITY )
-		{
-			parent::__construct( self::TYPE, $slug, $name, $capability );
-		}
-
-		const TYPE = 'tools';
+		parent::__construct( self::TYPE, $slug, $name, $capability );
 	}
+
+	private const TYPE = 'tools';
 }

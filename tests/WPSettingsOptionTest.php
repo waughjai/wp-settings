@@ -68,4 +68,12 @@ class WPSettingsOptionTest extends TestCase
 		$option->render();
 		$this->assertEquals( '<h1>HELLO WORLD!</h1>', ob_get_clean() );
 	}
+
+	public function testOptionValue()
+	{
+		$page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
+		$section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
+		$option = new WPSettingsOption( $section, 'state', 'State', [ 'input_type' => 'select', 'select_options' => [ [ 'value' => 'al', 'name' => 'Alabama' ], [ 'value' => 'ca', 'name' => 'California' ], [ 'value' => 'wa', 'name' => 'Washington' ] ] ] );
+		$this->assertEquals( $option->getOptionValue(), null );
+	}
 }
