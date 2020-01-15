@@ -20,6 +20,9 @@ Will generate a “Design” tab in Settings on WordPress admin with “Main Scr
 
 ## Changelog
 
+### 0.9.0
+* Add ability to create page for main top admin bar
+
 ### 0.8.2
 * Improve textarea rendering in option page:
     * Make textarea taller and wider

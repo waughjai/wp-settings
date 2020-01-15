@@ -86,6 +86,7 @@ class WPSettingsSubPage
 
 	private const TYPE_ADD_PAGE_FUNCTIONS =
 	[
+		'main' => 'add_menu_page',
 		'settings' => 'add_options_page',
 		'tools' => 'add_management_page',
 		'theme' => 'add_theme_page'

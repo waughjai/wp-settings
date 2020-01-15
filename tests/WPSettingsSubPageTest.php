@@ -23,6 +23,8 @@ class WPSettingsSubPageTest extends TestCase
 		$this->assertEquals( 'add_management_page', $tools_page->getAddPageFunction() );
 		$theme_page = new WPSettingsSubPage( 'theme', 'design', 'Design' );
 		$this->assertEquals( 'add_theme_page', $theme_page->getAddPageFunction() );
+		$main_page = new WPSettingsSubPage( 'main', 'big-thing', 'Big Thing' );
+		$this->assertEquals( 'add_menu_page', $main_page->getAddPageFunction() );
 	}
 
 	public function testBasic()
