@@ -21,7 +21,11 @@ Will generate a “Design” tab in Settings on WordPress admin with “Main Scr
 ## Changelog
 
 ### 0.8.1
-* Clean up & update code & fix readme errors
+* Clean up & update code & fix readme errors:
+    * Make namespaces cleaner
+    * Remove outdated TestHashItem dependency
+    * Fix inaccurate example info in readme
+    * Add visibility keywords to const members
 
 ### 0.8.0
 * Add custom render option
