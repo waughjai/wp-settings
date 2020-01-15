@@ -48,7 +48,7 @@ class WPSettingsOption
 				break;
 				case( 'textarea' ):
 				{
-					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"><?= $this->getOptionValue(); ?></textarea><?php
+					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" rows="10" style="width:100%"><?= $this->getOptionValue(); ?></textarea><?php
 				}
 				break;
 				case( 'select' ):

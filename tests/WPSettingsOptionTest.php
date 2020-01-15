@@ -36,7 +36,7 @@ class WPSettingsOptionTest extends TestCase
 		$option = new WPSettingsOption( $section, 'show_header', 'Show Header?', [ 'input_type' => 'textarea' ] );
 		ob_start();
 		$option->render();
-		$this->assertEquals( '<textarea id="show_header" name="settings_design_options[show_header]"></textarea>', ob_get_clean() );
+		$this->assertEquals( '<textarea id="show_header" name="settings_design_options[show_header]" rows="10" style="width:100%"></textarea>', ob_get_clean() );
 	}
 
 	public function testNumber()

@@ -20,12 +20,16 @@ Will generate a “Design” tab in Settings on WordPress admin with “Main Scr
 
 ## Changelog
 
+### 0.8.2
+* Improve textarea rendering in option page:
+    * Make textarea taller and wider
+
 ### 0.8.1
 * Clean up & update code & fix readme errors:
-    * Make namespaces cleaner
-    * Remove outdated TestHashItem dependency
-    * Fix inaccurate example info in readme
-    * Add visibility keywords to const members
+* Make namespaces cleaner
+* Remove outdated TestHashItem dependency
+* Fix inaccurate example info in readme
+* Add visibility keywords to const members
 
 ### 0.8.0
 * Add custom render option
