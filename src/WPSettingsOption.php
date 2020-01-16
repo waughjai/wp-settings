@@ -28,6 +28,7 @@ class WPSettingsOption
 			$this->section->getSlug(),
 			[ 'label_for' => $this->slug ]
 		);
+		register_setting( $this->section->getPage()->getOptionsGroup(), $this->slug );
 	}
 
 	public function render() : void
@@ -38,17 +39,26 @@ class WPSettingsOption
 		}
 		else
 		{
+			$value = ( $this->other_attributes->get( 'autoincrement' ) === true )
+				?
+				(
+					( $this->getOptionValue() === '' || $this->getOptionValue() === null )
+						? 0
+						: intval( $this->getOptionValue() ) + 1
+				)
+				: $this->getOptionValue();
+
 			switch ( $this->other_attributes->get( 'input_type' ) )
 			{
 				case( 'checkbox' ):
 				{
-					$checked_text = ( $this->getOptionValue() ) ? ' checked="checked"' : '';
+					$checked_text = ( $value ) ? ' checked="checked"' : '';
 					?><input type="checkbox" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"<?= $checked_text; ?> /><?php
 				}
 				break;
 				case( 'textarea' ):
 				{
-					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" rows="10" style="width:100%"><?= $this->getOptionValue(); ?></textarea><?php
+					?><textarea id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" rows="10" style="width:100%"><?= $value; ?></textarea><?php
 				}
 				break;
 				case( 'select' ):
@@ -57,7 +67,7 @@ class WPSettingsOption
 					$number_of_options = count( $options );
 					for ( $i = 0; $i < $number_of_options; $i++ )
 					{
-						if ( $this->getOptionValue() === $options[ $i ][ 'value' ] )
+						if ( $value === $options[ $i ][ 'value' ] )
 						{
 							$options[ $i ][ 'selected' ] = true;
 						}
@@ -72,7 +82,7 @@ class WPSettingsOption
 				break;
 				default:
 				{
-					?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $this->getOptionValue(); ?>" /><?php
+					?><input type="<?= $this->other_attributes->get( 'input_type' ); ?>" id="<?= $this->slug; ?>" name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]" placeholder="<?= $this->name; ?>" value="<?= $value; ?>" /><?php
 				}
 				break;
 			}

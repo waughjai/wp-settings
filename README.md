@@ -20,6 +20,9 @@ Will generate a “Design” tab in Settings on WordPress admin with “Main Scr
 
 ## Changelog
 
+### 0.10.0
+* Add autoincrement option to WPSettingsOption
+
 ### 0.9.0
 * Add ability to create page for main top admin bar
 
