@@ -11,9 +11,9 @@
     ],
     "type": "library",
     "require": {
-		"php": ">=7.2",
+		"php": ">=7.4",
 		"waughj/verified-arguments": "*",
-        "waughj/html-select": "^0.1.0"
+        "waughj/html-select": "*"
     },
     "require-dev": {
 		"phpunit/phpunit": "*"

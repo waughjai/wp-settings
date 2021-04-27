@@ -7,18 +7,22 @@ Classes for simplifying the creation of general settings options, sections, & su
 
     use WaughJ\WPSettings\WPSettingsOption;
     use WaughJ\WPSettings\WPSettingsSection;
-    use WaughJ\WPSettings\WPSettingsSubPage;
+    use WaughJ\WPSettings\WPSettingsPage;
 
-    $page = new WPSettingsSubPage( 'settings', 'design', 'Design' );
-    $section = new WPSettingsSection( $page, 'main_scripts', 'Main Scripts' );
-    $option = new WPSettingsOption( $section, 'main_css', 'Main CSS' );
-    $page->submit();
+    $page = new WPSettingsPage( 'settings', 'design', 'Design' );
+    $page->addSection( 'main_scripts', 'Main Scripts' );
+    $page->getSection( 'main_scripts' )->addOption( 'main_css', 'Main CSS' );
+    $page->register();
 
 Will generate a “Design” tab in Settings on WordPress admin with “Main Scripts” section & option headered “Main CSS”. The value saved into that input box can then be later retrieved by calling:
 
-    $option->getOptionValue();
+    $page->getSection( 'main_scripts' )->getOption( 'main_css' )->getValue();
 
 ## Changelog
+
+### 1.0.0
+* Revamp & clean up code
+* Upgrade to PHP 7.4
 
 ### 0.10.0
 * Add autoincrement option to WPSettingsOption
