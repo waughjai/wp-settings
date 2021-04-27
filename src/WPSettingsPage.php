@@ -90,9 +90,19 @@ class WPSettingsPage
 		return $this->name;
 	}
 
-	public function getSection( string $slug ) : ?WPSettingsSection
+	public function getType() : string
 	{
-		return $this->sections[ $slug ] ?? null;
+		return $this->type;
+	}
+
+	// Make sure this is a reference so it can be changed & have its changes propagate back here.
+	public function &getSection( string $slug ) : WPSettingsSection
+	{
+		if ( !array_key_exists( $slug, $this->sections ) )
+		{
+			throw new WPSettingsMissingSectionException( $this, $slug );
+		}
+		return $this->sections[ $slug ];
 	}
 
 	public function render() : void
@@ -103,6 +113,7 @@ class WPSettingsPage
 	private function __construct( string $function, string $type, string $slug, string $name, array $otherAttributes = [] )
 	{
 		$this->function = $function;
+		$this->type = $type;
 		$this->slug = "{$type}_" . sanitize_title( $slug );
 		$this->name = __( sanitize_text_field( $name ), 'textdomain' );
 		$this->otherAttributes = new VerifiedArguments( $otherAttributes, $this->generateArgumentDefaults() );
@@ -135,6 +146,7 @@ class WPSettingsPage
 	}
 
 	private string $function;
+	private string $type;
 	private string $slug;
 	private string $name;
 	private VerifiedArguments $otherAttributes;

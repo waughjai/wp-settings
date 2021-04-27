@@ -1,6 +1,6 @@
 {
     "name": "waughj/wp-settings",
-    "description": "Classes for simplifying the creation of general settings options, sections, & subpages.",
+    "description": "Classes for simplifying the creation of general settings options, sections, & pages.",
     "keywords": [ "wordpress", "settings", "options", "generator" ],
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -12,7 +12,7 @@
     "type": "library",
     "require": {
 		"php": ">=7.4",
-		"waughj/verified-arguments": "*",
+		"waughj/verified-arguments": "^1.0",
         "waughj/html-select": "*"
     },
     "require-dev": {

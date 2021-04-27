@@ -25,14 +25,14 @@ class WPSettingsOption
 			{
 				add_settings_field
 				(
-					$this->slug,
+					$this->getFullSlug(),
 					$this->name,
 					[ $this, 'render' ],
 					$this->section->getPage()->getOptionsGroup(),
-					$this->section->getSlug(),
-					[ 'label_for' => $this->slug ]
+					$this->section->getFullSlug(),
+					[ 'label_for' => $this->getFullSlug() ]
 				);
-				register_setting( $this->section->getPage()->getOptionsGroup(), $this->slug );
+				register_setting( $this->section->getPage()->getOptionsGroup(), $this->getFullSlug() );
 			}
 		);
 	}
@@ -41,8 +41,23 @@ class WPSettingsOption
 	{
 		$options = get_option( $this->section->getPage()->getOptionsGroup() );
 		return ( is_array( $options ) )
-			? ( $options[ $this->slug ] ?? '' )
+			? ( $options[ $this->getFullSlug() ] ?? '' )
 			: ( string )( $options );
+	}
+
+	public function getSlug() : string
+	{
+		return $this->slug;
+	}
+
+	public function getFullSlug() : string
+	{
+		return "{$this->section->getFullSlug()}_{$this->slug}";
+	}
+
+	public function getName() : string
+	{
+		return $this->name;
 	}
 
 	public function render() : void
@@ -69,8 +84,8 @@ class WPSettingsOption
 					$checked_text = ( $value ) ? ' checked="checked"' : '';
 					?>
 						<input
-							type="checkbox" id="<?= $this->slug; ?>"
-							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"
+							type="checkbox" id="<?= $this->getFullSlug(); ?>"
+							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->getFullSlug(); ?>]"
 							<?= $checked_text; ?>
 						/>
 					<?php
@@ -80,8 +95,8 @@ class WPSettingsOption
 				{
 					?>
 						<textarea
-							id="<?= $this->slug; ?>"
-							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"
+							id="<?= $this->getFullSlug(); ?>"
+							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->getFullSlug(); ?>]"
 							rows="10"
 							style="width:100%"><?= $value; ?></textarea>
 					<?php
@@ -102,7 +117,7 @@ class WPSettingsOption
 					echo new HTMLSelect
 					(
 						$options,
-						[ 'id' => $this->slug, 'name' => $this->section->getPage()->getOptionsGroup() . '[' . $this->slug . ']' ]
+						[ 'id' => $this->getFullSlug(), 'name' => $this->section->getPage()->getOptionsGroup() . '[' . $this->getFullSlug() . ']' ]
 					);
 				}
 				break;
@@ -111,8 +126,8 @@ class WPSettingsOption
 					?>
 						<input
 							type="<?= $this->otherAttributes->get( 'input_type' ); ?>"
-							id="<?= $this->slug; ?>"
-							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->slug; ?>]"
+							id="<?= $this->getFullSlug(); ?>"
+							name="<?= $this->section->getPage()->getOptionsGroup(); ?>[<?= $this->getFullSlug(); ?>]"
 							placeholder="<?= $this->name; ?>"
 							value="<?= $value; ?>"
 						/>
